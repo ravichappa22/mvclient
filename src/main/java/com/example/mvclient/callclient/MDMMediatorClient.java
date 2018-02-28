@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class MvClient {
+public class MDMMediatorClient {
 	
 	@Autowired
 	private RestTemplate restTemplate;
 	
 	@Autowired
-	private FeignInterface feignInterface;
+	private MDMFeignInterface mdmFeignInterface;
 	
-	public boolean sendClaimsToMV(String newTrackingId) {
+	public boolean sendClaimsToMDM(String newTrackingId) {
 		//File file = new File("classpath:input");
-		String fileName = "/Users/rchappa1/Documents/Claims-Modernization/PocWorld/mvclient/src/main/resources/MemberMatch";
+		String fileName = "/Users/rchappa1/Documents/Claims-Modernization/PocWorld/mvclient/src/main/resources/MDM";
 		String finalString=null;
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
@@ -36,7 +36,7 @@ public class MvClient {
 			e.printStackTrace();
 		}
 	
-		feignInterface.callMvLocal("bearer 652b7270-8c52-4987-8659-78b1d92c5c6f",finalString);
+		mdmFeignInterface.callMDM("bearer 5041f029-a58a-4a4f-9d72-02358b5c96f2",finalString);
 		
 		return true;
 	}
@@ -46,13 +46,13 @@ public class MvClient {
 
 		@Override
 		public void run() {
-			sendClaimsToMV(UUID.randomUUID().toString());
+			sendClaimsToMDM(UUID.randomUUID().toString());
 			
 		}
 		
 	}
 	
-	public boolean callMvInParallel() {
+	public boolean callMDMInParallel() {
 		for(int i=0; i<50;i++) {
 		Thread thread = new Thread(new CallMvInParallel());
 		thread.start();

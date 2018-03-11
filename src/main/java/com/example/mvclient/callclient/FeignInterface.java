@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value="myrestfeign", url="http://localhost:8080/")
+@FeignClient(value="myrestfeignmv", url="http://localhost:8093/")
 public interface FeignInterface {
 	
 	@RequestMapping(value="api/membervalidation/claim/", method = RequestMethod.POST, consumes="application/xml")

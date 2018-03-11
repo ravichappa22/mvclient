@@ -20,23 +20,25 @@ public class MvClient {
 	
 	public boolean sendClaimsToMV(String newTrackingId) {
 		//File file = new File("classpath:input");
-		String fileName = "/Users/rchappa1/Documents/Claims-Modernization/PocWorld/mvclient/src/main/resources/MemberMatch";
-		String finalString=null;
+		String fileName = "/Users/rchappa1/Documents/Claims-Modernization/PocWorld/mvclient/src/main/resources/mvtest";
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
 			String line;
 			
 			while ((line = br.readLine()) != null) {
+				String finalString=null;
 				finalString = line.replace("ReplceClainTrackingId", newTrackingId);
 				//finalString = line;
 				System.out.println("current Thread= "+Thread.currentThread() + finalString);
+				feignInterface.callMvLocal("bearer 2ee348c4-4f6e-4ba5-9fbc-a4fb67ecdcc3",finalString);
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	
-		feignInterface.callMvLocal("bearer 652b7270-8c52-4987-8659-78b1d92c5c6f",finalString);
+		
 		
 		return true;
 	}

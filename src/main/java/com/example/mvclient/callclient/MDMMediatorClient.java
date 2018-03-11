@@ -20,23 +20,25 @@ public class MDMMediatorClient {
 	
 	public boolean sendClaimsToMDM(String newTrackingId) {
 		//File file = new File("classpath:input");
-		String fileName = "/Users/rchappa1/Documents/Claims-Modernization/PocWorld/mvclient/src/main/resources/MDM";
-		String finalString=null;
+		String fileName = "/Users/rchappa1/Documents/Claims-Modernization/PocWorld/mvclient/src/main/resources/MDMMATCHMOCK";
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 
 			String line;
 			
 			while ((line = br.readLine()) != null) {
+				String finalString=null;
 				finalString = line.replace("ReplceClainTrackingId", newTrackingId);
 				//finalString = line;
 				System.out.println("current Thread= "+Thread.currentThread() + finalString);
+				mdmFeignInterface.callMDM("bearer 8e790074-1181-4f2e-96c3-7c4ce7a8886b",finalString);
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	
-		mdmFeignInterface.callMDM("bearer 5041f029-a58a-4a4f-9d72-02358b5c96f2",finalString);
+		
 		
 		return true;
 	}
